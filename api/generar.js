@@ -84,7 +84,22 @@ function generarHTML(codigo, datos) {
             <iframe src="${mapaURL}" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
 
-          ${videosHTML ? `<div class="col m12 full"><h6 class="blue-text">Videos:</h6>${videosHTML}</div>` : ''}
+          <div class="col m12 full center">
+            <h6 class="blue-text">Compartir: </h6>
+            <a class="share btn blue-grey darken-4" href='https://api.whatsapp.com/send?text=http://aberpropiedades.com.ar/fichas/${codigo}.php' target='_blank'>
+              <img class='iconocontacto' src='../img/whatsapp.png'>Compartir
+            </a>&nbsp;
+            <a class="share btn blue-grey darken-4" href='https://www.facebook.com/sharer/sharer.php?u=http://aberpropiedades.com.ar/fichas/${codigo}.php' target='_blank'>
+              <img class='iconocontacto' src='../img/facebook.png'>Compartir
+            </a>&nbsp;
+            <a class="share btn blue-grey darken-4" href='https://twitter.com/intent/tweet?text=http://aberpropiedades.com.ar/fichas/${codigo}.php' target='_blank'>
+              <img class='iconocontacto' src='../img/twitter.png'>Compartir
+            </a>&nbsp;
+            <a class="share btn blue-grey darken-4" href="mailto:?body=http://aberpropiedades.com.ar/fichas/${codigo}.php">
+              <i class="material-icons left">email</i>Compartir
+            </a>
+          </div>
+
 
         </div>
       </div>

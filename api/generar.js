@@ -1,51 +1,20 @@
 import axios from "axios";
 
-export default async function handler(req, res) {
-  if (req.method !== "GET") {
-    return res.status(405).json({ error: "Método no permitido, usá GET" });
-  }
-
-  const { codigo } = req.query; 
-  if (!codigo) {
-    return res.status(400).json({ error: "Falta el parámetro 'codigo'" });
-  }
-
-  try {
-    
-        const url = `https://apmovil.som.com.ar/BusquedaServiceV2.aspx?token=GUID&codigoInmobiliaria=SOM&codigoSucursal=00&Id=${codigo}`;
-    
-    const datos = {
-      titulo: "Departamento 2 ambientes, Almagro, Aber Propiedades",
-      direccion: "RIO DE JANEIRO 500 p. 4 (G)",
-      ubicacion: "ALMAGRO - CIUDAD AUTONOMA BUENOS AIRES",
-      superficie: "Superficie cubierta propia: 40 m2<br>Superficie total uso propio UF: 40 m2",
-      operacion: "Venta U$S 140.000",
-      descripcion: `2 AMBIENTES - APTO PROFESIONAL<br>
-                    IDEAL RENTA - POSIBILIDAD DE FINANCIACIÓN
-                    Edificio de doble frente con amplias y luminosas unidades...`,
-      imagenes: [
-        "fotos/02059bda-4471-4e73-956d-351d0fdd5f15.jpg",
-        "fotos/e623cd9b-1ed0-4bf1-b733-d4cebd791f16.jpg",
-        "fotos/4a5e1eab-7a4d-457d-a42f-d096bd87faa3.jpg"
-      ],
-      mapa: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.771003025041!2d-58.43053570000001!3d-34.609951699999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcca6843e39297%3A0x8a1b578785ba88a9!2sR%C3%ADo%20de%20Janeiro%20500%2C%20C1405%20Cdad.%20Aut%C3%B3noma%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1711130742125!5m2!1ses!2sar"
-    };
-
-    const phpTemplate = `<?php
-// PHP generado dinámicamente para ${codigo}
-?>
+// Función para generar HTML a partir de los datos
+function generarHTML(codigo, datos) {
+  return `
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>${datos.titulo}</title>
-<link rel='shortcut icon' type='image/x-icon' href='../favicon.ico?version=<?php echo time() ?>' />
+<link rel='shortcut icon' type='image/x-icon' href='../favicon.ico' />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link type="text/css" rel="stylesheet" href="../css/materialize.min.css?version=<?php echo time() ?>" media="screen,projection"/>
+<link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript" src="../js/scripts.js?version=<?php echo time(); ?>"></script>
+<script type="text/javascript" src="../js/scripts.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet"/>
 <meta property="og:url" content="http://aberpropiedades.com.ar/fichas/${codigo}.php" />
 <meta property="og:type" content="website" />
@@ -67,7 +36,7 @@ export default async function handler(req, res) {
             <tr><td><i class="material-icons blue-grey-text iconos">home</i></td><td><h5><span id="tipoPropiedad">DEPARTAMENTO - 2 AMBIENTES</span></h5></td></tr>
             <tr><td><i class="material-icons blue-grey-text iconos">place</i></td><td><h6><span id="direccion">${datos.direccion}</span></h6></td></tr>
             <tr><td><i class="material-icons blue-grey-text iconos">home</i></td><td><h6><span id="ubicacion">${datos.ubicacion}</span></h6></td></tr>
-            <tr><td><i class="material-icons blue-grey-text iconos">crop_free</i></td><td><h6><span id="ubicacion">${datos.superficie}</span></h6></td></tr>
+            <tr><td><i class="material-icons blue-grey-text iconos">crop_free</i></td><td><h6><span id="superficie">${datos.superficie}</span></h6></td></tr>
             <tr><td><i class="material-icons blue-grey-text iconos">attach_money</i></td><td><h6><span id="operacion">${datos.operacion}</span></h6></td></tr>
           </tbody>
         </table>
@@ -100,17 +69,40 @@ export default async function handler(req, res) {
 <script type="text/javascript">loadfooterFichas();</script>
 <script type="text/javascript" src="../js/materialize.min.js"></script>
 </body>
-</html>`;
+</html>
+`;
+}
 
-    /*res.setHeader("Content-Type", "text/plain; charset=utf-8");
+// Handler del endpoint
+export default async function handler(req, res) {
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "Método no permitido, usá GET" });
+  }
+
+  const { codigo } = req.query; 
+  if (!codigo) {
+    return res.status(400).json({ error: "Falta el parámetro 'codigo'" });
+  }
+
+  try {
+    // Hacer GET al endpoint que devuelve JSON
+    const url = `https://apmovil.som.com.ar/BusquedaServiceV2.aspx?token=GUID&codigoInmobiliaria=SOM&codigoSucursal=00&Id=${codigo}`;
+    const response = await axios.get(url);
+    const datos = response.data;
+
+    // Generamos el HTML usando la función externa
+    const html = generarHTML(codigo, datos);
+
+/*res.setHeader("Content-Type", "text/plain; charset=utf-8");
     res.setHeader("Content-Disposition", `attachment; filename="ficha-${codigo}.php"`);
     res.status(200).send(phpTemplate);*/
 
-    res.setHeader("Content-Type", "application/json; charset=utf-8");
-    res.status(200).json({ contenido: phpTemplate });
+    // Enviamos como HTML al navegador
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.status(200).send(html);
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Error al generar el PHP" });
+    res.status(500).json({ error: "Error al generar la ficha" });
   }
 }

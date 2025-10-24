@@ -67,7 +67,7 @@ function generarHTML(codigo, datos) {
             <table class="tablaDatos">
               <tbody>
                 <tr><td><i class="material-icons blue-grey-text iconos">home</i></td><td><h5>${datos.TipoPropiedad.toUpperCase() || ''} - ${datos.SubtipoPropiedad.toUpperCase() || ''}</h5></td></tr>
-                <tr><td><i class="material-icons blue-grey-text iconos">place</i></td><td><h6>${direccion} Entre calles: ${datos.Referencia}</h6></td></tr>
+                <tr><td><i class="material-icons blue-grey-text iconos">place</i></td><td><h6>${direccion} - Entre calles: ${datos.Referencia}</h6></td></tr>
                 <tr><td><i class="material-icons blue-grey-text iconos">home</i></td><td><h6>${datos.Ubicacion || ''}</h6></td></tr>
                 <tr><td><i class="material-icons blue-grey-text iconos">crop_free</i></td><td><h6>Superficie cubierta propia: ${datos.SubCub ? datos.SubCub + ' ' + (datos.UnidadMedida || 'm2') : ''}<br>Superficie total uso propio UF: ${datos.SupTot ? datos.SupTot + ' ' + (datos.UnidadMedida || 'm2') : ''}</h6></td></tr>
                 <tr><td><i class="material-icons blue-grey-text iconos">attach_money</i></td><td><h6>${precio}${precio}</h6></td></tr>
@@ -94,7 +94,7 @@ function generarHTML(codigo, datos) {
           </div>
 
         <div class="col m12 full" id="atributosFicha">
-          <h6 class="blue-text">Atributos: </h6>
+          <h6 class="blue-text">Características generales: </h6>
           <ul class="atributos">
             ${atributosHTML}
           </ul>
@@ -156,13 +156,13 @@ export default async function handler(req, res) {
     // Generamos el HTML usando la función externa
     const html = generarHTML(codigo, datosJSON);
 
-/*res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.setHeader("Content-Type", "text/plain; charset=utf-8");
     res.setHeader("Content-Disposition", `attachment; filename="ficha-${codigo}.php"`);
-    res.status(200).send(phpTemplate);*/
+    res.status(200).send(phpTemplate);
 
     // Enviamos como HTML al navegador
-    res.setHeader("Content-Type", "application/json; charset=utf-8");
-    res.status(200).json({ contenido: html });
+    //res.setHeader("Content-Type", "application/json; charset=utf-8");
+    //res.status(200).json({ contenido: html });
 
   } catch (err) {
     console.error(err);

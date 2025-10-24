@@ -79,6 +79,7 @@ function generarHTML(codigo, datos) {
 
           <div class="col m6 blue-grey lighten-4 bordes padding full">
             <div id="galeria" class="galeria" style="padding-bottom: 10px;">
+            <script type="text/javascript">cargarFicha();</script>
               <div class="slider col m12 fotoficha">
                 <ul class="slides fotofichaslide">
                   ${imagenesHTML}

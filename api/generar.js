@@ -6,7 +6,7 @@ function generarHTML(codigo, datos) {
   const direccion = `${datos.Calle || ''} ${datos.Altura || ''} ${datos.Piso ? 'Piso ' + datos.Piso : ''} ${datos.Unidad ? 'Unidad ' + datos.Unidad : ''}`.trim();
   
   // Precio
-  const precio = datos.Importe ? `${datos.Moneda || ''}${datos.Importe}` : 'Consultar';
+  const precio = datos.TipoOperacion ? " " ? datos.Importe ? ` ${datos.Moneda || ''}${datos.Importe}` : 'Consultar';
 
   // Lista de imágenes grandes
   const imagenesHTML = (datos.fotos && datos.fotos.length) 
@@ -55,7 +55,7 @@ function generarHTML(codigo, datos) {
               <tbody>
                 <tr><td><i class="material-icons blue-grey-text iconos">home</i></td><td><h5>${datos.TipoPropiedad || ''} - ${datos.SubtipoPropiedad || ''}</h5></td></tr>
                 <tr><td><i class="material-icons blue-grey-text iconos">place</i></td><td><h6>${direccion}</h6></td></tr>
-                <tr><td><i class="material-icons blue-grey-text iconos">attach_money</i></td><td><h6>${precio}</h6></td></tr>
+                <tr><td><i class="material-icons blue-grey-text iconos">attach_money</i></td><td><h6>${precio}${precio}</h6></td></tr>
                 <tr><td><i class="material-icons blue-grey-text iconos">crop_free</i></td><td><h6>${datos.SupTot ? datos.SupTot + ' ' + (datos.UnidadMedida || 'm2') : ''}</h6></td></tr>
                 <tr><td><i class="material-icons blue-grey-text iconos">map</i></td><td><h6>${datos.Ubicacion || ''}</h6></td></tr>
               </tbody>

@@ -40,7 +40,7 @@ function generarHTML(codigo, datos) {
     <meta property="og:url" content="http://aberpropiedades.com.ar/fichas/${codigo}.php" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="${datos.TipoPropiedad || 'Propiedad'}" />
-    <meta property="og:description" content="${datos.Destacable || ''}" />
+    <meta property="og:description" content="" />
     <meta property="og:image" content="${datos.fotos && datos.fotos[0] ? datos.fotos[0].url : 'default.jpg'}" />
     </head>
 

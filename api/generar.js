@@ -111,8 +111,8 @@ export default async function handler(req, res) {
     res.status(200).send(phpTemplate);*/
 
     // Enviamos como HTML al navegador
-    res.setHeader("Content-Type", "text/html; charset=utf-8");
-    res.status(200).send(html);
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).json({ contenido: html });
 
   } catch (err) {
     console.error(err);

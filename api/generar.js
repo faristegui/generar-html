@@ -25,7 +25,7 @@ function generarHTML(codigo, datos) {
     ? datos.videos.map(v => `<a href="${v.url}" target="_blank">Ver Video</a>`).join('<br/>') 
     : '';
 
-    const atributosHTML = datos.atributos
+    const atributosHTML = datos.Atributos
   ? datos.Atributos
       .split(';') // separa por ;
       .filter(item => item.trim() !== '') // descartamos strings vacíos

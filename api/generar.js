@@ -11,8 +11,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    // URL de tu endpoint real
-    const url = `https://api.tuendpoint.com/propiedades/${codigo}`;
+    
+        const url = `https://apmovil.som.com.ar/BusquedaServiceV2.aspx?token=GUID&codigoInmobiliaria=SOM&codigoSucursal=00&Id=${codigo}`;
     
     const datos = {
       titulo: "Departamento 2 ambientes, Almagro, Aber Propiedades",
@@ -102,9 +102,12 @@ export default async function handler(req, res) {
 </body>
 </html>`;
 
-    res.setHeader("Content-Type", "text/html; charset=utf-8");
-    //res.setHeader("Content-Disposition", `attachment; filename="ficha-${codigo}.php"`);
-    res.status(200).send(phpTemplate);
+    /*res.setHeader("Content-Type", "text/plain; charset=utf-8");
+    res.setHeader("Content-Disposition", `attachment; filename="ficha-${codigo}.php"`);
+    res.status(200).send(phpTemplate);*/
+
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    res.status(200).json({ contenido: phpTemplate });
 
   } catch (err) {
     console.error(err);

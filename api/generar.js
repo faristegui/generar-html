@@ -25,12 +25,23 @@ function generarHTML(codigo, datos) {
     ? datos.videos.map(v => `<a href="${v.url}" target="_blank">Ver Video</a>`).join('<br/>') 
     : '';
 
+    const atributosHTML = datos.atributos
+  ? datos.Atributos
+      .split(';') // separa por ;
+      .filter(item => item.trim() !== '') // descartamos strings vacíos
+      .map(item => {
+        const [clave, valor] = item.split(':');
+        return `<li>${clave.trim()}: <b>${valor ? valor.trim() : ''}</b></li>`;
+      })
+      .join('')
+  : '';
+
   return `
     <!DOCTYPE html>
     <html>
     <head>
     <meta charset="UTF-8">
-    <title>${datos.TipoPropiedad || 'Propiedad'}</title>
+    <title>Aber Propiedades</title>
     <link rel='shortcut icon' type='image/x-icon' href='../favicon.ico' />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection"/>
@@ -57,9 +68,10 @@ function generarHTML(codigo, datos) {
               <tbody>
                 <tr><td><i class="material-icons blue-grey-text iconos">home</i></td><td><h5>${datos.TipoPropiedad || ''} - ${datos.SubtipoPropiedad || ''}</h5></td></tr>
                 <tr><td><i class="material-icons blue-grey-text iconos">place</i></td><td><h6>${direccion}</h6></td></tr>
-                <tr><td><i class="material-icons blue-grey-text iconos">attach_money</i></td><td><h6>${precio}${precio}</h6></td></tr>
+                <tr><td><i class="material-icons blue-grey-text iconos">home</i></td><td><h6>${datos.Ubicacion || ''}</h6></td></tr>
                 <tr><td><i class="material-icons blue-grey-text iconos">crop_free</i></td><td><h6>Superficie cubierta propia: ${datos.SubCub ? datos.SubCub + ' ' + (datos.UnidadMedida || 'm2') : ''}<br>Superficie total uso propio UF: ${datos.SupTot ? datos.SupTot + ' ' + (datos.UnidadMedida || 'm2') : ''}</h6></td></tr>
-                <tr><td><i class="material-icons blue-grey-text iconos">map</i></td><td><h6>${datos.Ubicacion || ''}</h6></td></tr>
+                <tr><td><i class="material-icons blue-grey-text iconos">attach_money</i></td><td><h6>${precio}${precio}</h6></td></tr>
+
               </tbody>
             </table>
             <div class="col m12 full">&nbsp;</div>
@@ -79,6 +91,14 @@ function generarHTML(codigo, datos) {
             <h6 class="blue-text">Descripción: </h6>
             ${datos.Destacable || ''}
           </div>
+
+        <div class="col m12 full" id="atributosFicha">
+          <h6 class="blue-text">Atributos: </h6>
+          <ul>
+            ${atributosHTML}
+          </ul>
+        </div>
+
 
           <div class="col m12 full" id="mapa">
             <iframe src="${mapaURL}" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>

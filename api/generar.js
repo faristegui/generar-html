@@ -6,7 +6,9 @@ function generarHTML(codigo, datos) {
   const direccion = `${datos.Calle || ''} ${datos.Altura || ''} ${datos.Piso ? 'Piso ' + datos.Piso : ''} ${datos.Unidad ? 'Unidad ' + datos.Unidad : ''}`.trim();
   
   // Precio
-  const precio = datos.TipoOperacion ? " " ? datos.Importe ? ` ${datos.Moneda || ''}${datos.Importe}` : 'Consultar';
+  const precio = datos.Importe 
+  ? `${datos.TipoOperacion || ''} ${datos.Moneda || ''}${datos.Importe}` 
+  : 'Consultar';
 
   // Lista de imágenes grandes
   const imagenesHTML = (datos.fotos && datos.fotos.length) 

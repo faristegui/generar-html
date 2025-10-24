@@ -92,6 +92,7 @@ export default async function handler(req, res) {
     const datosJSON = response.data;
 
     const datos = {
+      destacable: datosJSON.destacable,
       titulo: datosJSON.titulo || "Título no disponible",
       direccion: datosJSON.direccion || "Dirección no disponible",
       ubicacion: datosJSON.ubicacion || "Ubicación no disponible",

@@ -66,7 +66,7 @@ function generarHTML(codigo, datos) {
           <div id="datosFicha" class="col m6">
             <table class="tablaDatos">
               <tbody>
-                <tr><td><i class="material-icons blue-grey-text iconos">home</i></td><td><h5>${datos.TipoPropiedad || ''} - ${datos.SubtipoPropiedad || ''}</h5></td></tr>
+                <tr><td><i class="material-icons blue-grey-text iconos">home</i></td><td><h5>${datos.TipoPropiedad.toUpperCase() || ''} - ${datos.SubtipoPropiedad.toUpperCase() || ''}</h5></td></tr>
                 <tr><td><i class="material-icons blue-grey-text iconos">place</i></td><td><h6>${direccion}</h6></td></tr>
                 <tr><td><i class="material-icons blue-grey-text iconos">home</i></td><td><h6>${datos.Ubicacion || ''}</h6></td></tr>
                 <tr><td><i class="material-icons blue-grey-text iconos">crop_free</i></td><td><h6>Superficie cubierta propia: ${datos.SubCub ? datos.SubCub + ' ' + (datos.UnidadMedida || 'm2') : ''}<br>Superficie total uso propio UF: ${datos.SupTot ? datos.SupTot + ' ' + (datos.UnidadMedida || 'm2') : ''}</h6></td></tr>
@@ -94,7 +94,7 @@ function generarHTML(codigo, datos) {
 
         <div class="col m12 full" id="atributosFicha">
           <h6 class="blue-text">Atributos: </h6>
-          <ul>
+          <ul class="atributos">
             ${atributosHTML}
           </ul>
         </div>

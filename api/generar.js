@@ -112,23 +112,11 @@ export default async function handler(req, res) {
     const url = `https://apmovil.som.com.ar/BusquedaServiceV2.aspx?token=GUID&codigoInmobiliaria=SOM&codigoSucursal=00&Id=${codigo}`;
     const response = await axios.get(url);
 
-    const datosJSON = response.data;
-
-    const datos = {
-      destacable: datosJSON.Destacable,
-      titulo: datosJSON.titulo || "Título no disponible",
-      direccion: datosJSON.direccion || "Dirección no disponible",
-      ubicacion: datosJSON.ubicacion || "Ubicación no disponible",
-      superficie: datosJSON.superficie || "",
-      operacion: datosJSON.operacion || "",
-      descripcion: datosJSON.descripcion || "",
-      imagenes: Array.isArray(datosJSON.imagenes) && datosJSON.imagenes.length ? datosJSON.imagenes : ["default.jpg"],
-      mapa: datosJSON.mapa || "https://www.google.com/maps"
-    };
+    const datosJSON = response.data
 
 
     // Generamos el HTML usando la función externa
-    const html = generarHTML(codigo, datos);
+    const html = generarHTML(codigo, datosJSON);
 
 /*res.setHeader("Content-Type", "text/plain; charset=utf-8");
     res.setHeader("Content-Disposition", `attachment; filename="ficha-${codigo}.php"`);

@@ -102,9 +102,8 @@ export default async function handler(req, res) {
 </body>
 </html>`;
 
-    // 💾 Forzar descarga del archivo PHP
     res.setHeader("Content-Type", "text/plain; charset=utf-8");
-    res.setHeader("Content-Disposition", `attachment; filename="ficha-${codigo}.php"`);
+    //res.setHeader("Content-Disposition", `attachment; filename="ficha-${codigo}.php"`);
     res.status(200).send(phpTemplate);
 
   } catch (err) {

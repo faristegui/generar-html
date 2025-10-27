@@ -36,6 +36,8 @@ function generarHTML(codigo, datos) {
       .join('')
   : '';
 
+  var destacable = datos.Destacable.replace(/\r\n\r\n/g, '<br>');
+
   return `
     <!DOCTYPE html>
     <html>
@@ -90,7 +92,7 @@ function generarHTML(codigo, datos) {
 
           <div id="destacable" class="col m12 full">
             <h6 class="blue-text">Descripción: </h6>
-            ${datos.Destacable || ''}
+            ${destacable || ''}
           </div>
 
         <div class="col m12 full" id="atributosFicha">

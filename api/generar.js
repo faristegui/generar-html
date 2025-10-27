@@ -7,7 +7,7 @@ function generarHTML(codigo, datos) {
   
   // Precio
   const precio = datos.Importe 
-  ? `${datos.TipoOperacion || ''} ${datos.Moneda || ''}${datos.Importe}` 
+  ? `${datos.TipoOperacion || ''} ${datos.Moneda || ''} + ' ' + ${datos.Importe}` 
   : 'Consultar';
 
   // Lista de imágenes grandes

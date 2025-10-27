@@ -72,7 +72,7 @@ function generarHTML(codigo, datos) {
                 <tr><td><i class="material-icons blue-grey-text iconos">place</i></td><td><h6>${direccion} - Entre calles: ${datos.Referencia}</h6></td></tr>
                 <tr><td><i class="material-icons blue-grey-text iconos">home</i></td><td><h6>${datos.Ubicacion || ''}</h6></td></tr>
                 <tr><td><i class="material-icons blue-grey-text iconos">crop_free</i></td><td><h6>Superficie cubierta propia: ${datos.SubCub ? datos.SubCub + ' ' + (datos.UnidadMedida || 'm2') : ''}<br>Superficie total uso propio UF: ${datos.SupTot ? datos.SupTot + ' ' + (datos.UnidadMedida || 'm2') : ''}</h6></td></tr>
-                <tr><td><i class="material-icons blue-grey-text iconos">attach_money</i></td><td><h6>${precio}${precio}</h6></td></tr>
+                <tr><td><i class="material-icons blue-grey-text iconos">attach_money</i></td><td><h6>${precio}</h6></td></tr>
 
               </tbody>
             </table>
